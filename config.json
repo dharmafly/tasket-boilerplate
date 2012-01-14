@@ -27,7 +27,7 @@
         "html5": [
             "./tasket/client/media/lib/js/html5.js"
         ],
-        "tasket": [
+        "tasket.tank": [
             "./tasket/client/media/tank/build/header.js",
             "./tasket/client/media/lib/js/jquery.js",
             "./tasket/client/media/lib/js/jquery.hashchange.js",

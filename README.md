@@ -97,7 +97,10 @@ Setting up the database
 
 As with a plain Tasket installation:
 
-    python manage.py syndb
+    python manage.py syncdb
+
+then proceed to set up a superuser, then:
+    
     python manage.py migrate
     
 
@@ -111,11 +114,11 @@ Make sure that virtualenv has been activated from the root folder:
 Run the server:
 
     cd web
-    python manage runserver
-    
+    python manage.py runserver
 
-Deployment
-----------
+
+Build the JavaScript
+--------------------
 
 The client-side app requires the compressed versions of the Tasket JavaScript
 to have been compiled. To do this ensure you have the most recent version of
@@ -124,18 +127,16 @@ Tasket in the submodule:
     cd tasket
     git pull
 
-Then run Smoosh in the root directory:
+Then run Smoosh in the root directory. You'll need `smoosh` installed on your path. 
+Check the [Tasket README][#readme] for more details.
 
     cd ../
     smoosh -c ./config.json
 
-You'll need `smoosh` installed on your path. Check the [Tasket README][#readme]
-for more details. NOTE: this is a different `config.json` file than [that in the 
-Tasket directory][#config].
-
+NOTE: this is a different `config.json` file than [that in the Tasket directory][#config].
 
 If the JavaScript or CSS has updated, then update the query-string version 
-numbers in /client/index.html. E.g:
+numbers in the HTML file, e.g. in /client/tank.html :
 
     <script src="/media/tasket/js/tasket.min.js?v0.8"></script>
     
