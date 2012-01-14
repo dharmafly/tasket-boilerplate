@@ -1,11 +1,9 @@
 Tasket Boilerplate
 ==================
+[Tasket Boilerplate][#boilerplate] is a simple, wrapped version of [Tasket][#about], the open-source micro-task web app. The boilerplate has the [Tasket core repository][#corerepo] installed as a Git submodule. This allows you to: [fork the Tasket Boilerplate repo][#fork], add your own custom HTML, JavaScript, CSS, or images for your project and still keep the core Tasket submodule up-to-date.
 
 Managing the Git Repository
 ---------------------------
-
-Tasket is setup as a Git submodule. This allows separation of the Tasket app
-and any HTML and CSS overrides that are required.
 
 The submodule will need to be activated the first time you checkout the 
 repository. This can be done with the following commands:
@@ -25,7 +23,7 @@ if you intend to develop Tasket within the submodule you'll want to set a branch
 Configuring the server
 ----------------------
 
-Tasket has a few dependencies (see [Tasket README][#tasket] for details). It's 
+Tasket has a few dependencies (see [Tasket README][#readme] for details). It's 
 recommended to run Tasket in a virtualenv with pip:
 
     virtualenv --no-site-packages .
@@ -131,9 +129,9 @@ Then run Smoosh in the root directory:
     cd ../
     smoosh -c ./config.json
 
-You'll need `smoosh` installed on your path. Check the [Tasket README][#tasket]
+You'll need `smoosh` installed on your path. Check the [Tasket README][#readme]
 for more details. NOTE: this is a different `config.json` file than [that in the 
-Tasket directory][#tasketconfig].
+Tasket directory][#config].
 
 
 If the JavaScript or CSS has updated, then update the query-string version 
@@ -149,5 +147,9 @@ If the files have changed, be sure to commit them into to the repository:
     git push
 
 
-[#tasketconfig]: https://github.com/dharmafly/tasket/blob/master/client/media/js/build/config.json
-[#tasket]: https://github.com/dharmafly/tasket/blob/master/README.md
+[#about]: http://dharmafly.com/tasket
+[#corerepo]: https://github.com/dharmafly/tasket
+[#boilerplate]: https://github.com/dharmafly/tasket-boilerplate
+[#config]: https://github.com/dharmafly/tasket/blob/master/client/media/js/build/config.json
+[#readme]: https://github.com/dharmafly/tasket/blob/master/README.md
+[#fork]: https://github.com/dharmafly/tasket-boilerplate/fork_select
