@@ -6,7 +6,7 @@ Managing the Git Repository
 ---------------------------
 
 The submodule will need to be activated the first time you checkout the 
-repository. This can be done with the following commands:
+repository:
 
     git submodule init
     git submodule update 
