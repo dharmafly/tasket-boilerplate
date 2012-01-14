@@ -4,8 +4,6 @@
 /ve
 /web
 /build
-__init__.py
-__init__.pyc
 local_settings.py
 server
 /.Python
