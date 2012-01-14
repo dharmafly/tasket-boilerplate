@@ -1,0 +1,343 @@
+<!doctype html>
+<!--[if IE]><html lang="en" class="ie"><![endif]--><!--[if !(IE)]><!-->
+<html lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Tasket Notepad</title>
+    <meta name="author" content="Dharmafly">
+    <meta name="description" content="Task-management app">
+    
+    <!-- ChromeFrame for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <!-- HTML5 ELEMENT RECOGNITION FOR OLD IEs -->
+    <!--[if (lte IE 8)]><script src="/media/notepad/build/pkg/html5.min.js"></script><![endif]-->
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <script>document.documentElement.className += " js";</script>
+    <link rel="stylesheet" href="/media/notepad/css/global.css?v0.2">
+    
+    <!-- IE CSS FIXES -->
+    <!--[if lte IE 8]><link href="/media/notepad/css/ie8.css" rel="stylesheet"><![endif]--><!--[if lte IE 7]><link href="/media/notepad/css/ie7.css" rel="stylesheet"><![endif]--><!--[if lte IE 6]><link href="/media/notepad/css/ie6.css" rel="stylesheet"><![endif]-->
+</head>
+
+<body>
+    <div id="pagetop">
+      <p><a id="skiplink" class="hiddenlink" href="#content">Skip to content</a></p>
+    </div>
+
+    <div id="wrapper">
+      <header id="pageheader">
+        <h1><a href="#/">Tasket Notepad</a></h1>
+      </header>
+      
+      <nav id="mainnav">
+        <ul>
+          <!--
+          <li class="first"><a href="/" title="Find out more">About</a></li>
+          <li><a href="/" title="Find out more">Info</a></li>
+          <li><a href="/" title="Some general info">Help</a></li>
+          -->
+          <li><a title="Sign up for an account" href="#/sign-up/">Sign up</a></li>
+          <li class="user vcard">You are logged in as 
+            <strong><a class="fn" href="#/account/" title="Edit your account details"></a></strong>
+          </li>
+          <li class="login">
+            <a href="#/login/" title="Login">Login</a>
+            <form action="/logout/" method="post">
+                <button title="Logout" class="link" type="submit">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </nav>
+      
+      <div id="main" class="cf ">
+
+        <section id="content"></section>
+
+		<h1 class="listsTab"><a><span class="label">Open lists</span></a></h1>
+        <aside id="lists">
+            <nav></nav>
+        </aside>
+		
+        <footer>
+          <nav>
+            <!--
+            <ul>
+              <li class="first"><a href="/" title="Find out more">About</a></li>
+              <li><a href="/" title="Tell us what you think">Contact Us</a></li>
+            </ul>
+            -->
+            
+            <p class="credits">
+                <a class="df" href="http://dharmafly.com" title="Dharmafly - apps for change">
+                    App by <span class="df-name">Dharmafly</span>.
+                </a> 
+                <a class="software" href="https://github.com/dharmafly/tasket" title="Open-source, micro-volunteering web app">
+                    Powered by <span class="software-name">Tasket</span>
+                </a>
+            </p>
+          </nav>
+        </footer>
+      </div>
+    </div>
+    <!-- end wrapper //-->
+
+
+    <!-- TEMPLATES -->
+    <script type="text/tim" class="welcome-msg">
+		<div class="welcome-message">
+			<div class="intro cf">
+				<h1>Drop-dead simple task lists</h1>
+				<p>The easiest, fastest way to keep track of your tasks.<br> <a href="#/sign-up/">» Sign up now</a></p>
+			</div>
+			<div class="features cf">
+				<div class="row cf">
+					<div>
+						<img src="media/notepad/images/screenshot-tasks.png" width="200" alt="Tasks"/>
+						<h2>Create & complete tasks</h2>
+						<p>Create tasks quickly. Add them to a list. Tick them off when complete.</p>
+					</div>
+					<div class="even">
+						<img src="media/notepad/images/screenshot-lists.png" width="200" alt="Lists"/>
+						<h2>Create multiple lists</h2>
+						<p>Organise your tasks in neat, organised lists.</p>
+					</div>
+				</div>
+				<div class="row cf">
+					<div>
+						<img src="media/notepad/images/screenshot-reorder.png" width="200" alt="Screenshot Reorder"/>
+						<h2>Prioritise tasks</h2>
+						<p>Re-order tasks however you wish. Sort them by priority or group them together.</p>
+					</div>
+					<div class="even">
+						<img src="media/notepad/images/screenshot-staritems.png" width="200" alt="Screenshot Staritems"/>
+						<h2>'Star' important tasks</h2>
+						<p>And view all your starred tasks in one list.</p>
+					</div>
+				</div>
+
+			</div>
+		
+	        <p class="cta">Please <a href="#/sign-up/">create an account</a> or <a href="#/login/">login</a> to start creating items.</p>
+		</div>
+    </script>
+    
+    <script type="text/tim" class="title-edit">
+        <input class="task-edit" type="text" placeholder="{{placeholder}}"> <a class="save button">save</a> <a class="cancel link">cancel</a>
+    </script>
+    
+    <script type="text/tim" class="task-edit">
+        <input class="task-edit" type="text" placeholder="{{placeholder}}"> <a class="save button">save</a> <a class="cancel link">cancel</a>
+    </script>
+
+    <script type="text/tim" class="task-list">
+		<div class="task-list">
+	        <div class="header">
+	            <h1><a>{{listTitle}}</a></h1>
+	            <ul class="edit-item">
+	                <li class="edit"><a title="Edit this item">Edit this item</a></li>
+	                <li class="delete"><a title="Delete this list">Delete this list</a></li>
+	            </ul>
+	        </div>
+	        <ul class="item-list"></ul>
+	        <a class="new-item">Add new item</a>
+		</div>
+    </script>
+
+    <script type="text/tim" class="task">
+        <p>{{itemText}}</p>
+        <ul class="edit-item">
+            <li class="move"><a title="Move this item">Move this item</a></li>
+            <li class="edit"><a title="Edit this item">Edit this item</a></li>
+            <li class="delete"><a title="Delete this item">Delete this item</a></li>
+            <li class="star"><a title="Star this item">Star this item</a></li>
+            <li class="tick"><a title="Mark this item as completed">Mark this item as completed</a></li>
+        </ul>
+    </script>
+
+	<script type="text/tim" class="hub-list">
+   		<ul class="item-list">
+			<li class="starred"><a tabindex="-1" href="#/tasks/starred/">Starred</a></li>
+		</ul>
+
+		<div class="controls">
+			<p><a tabindex="-1" href="#/hubs/new/" class="new-item">Add new list</a></p>
+			<div class="showing">
+				<p>Show: 
+					<select name="showing" id="showing" size="1" tabindex="-1">
+						<option value="all">all tasks</option>
+						<option value="onlyDone">only done tasks</option>
+						<option value="onlyIncomplete">only incomplete tasks</option>
+					
+					</select>
+				</p>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/tim" class="hub">
+    	<a tabindex="-1" href="#/hubs/{{id}}/"><span class="count">{{count}}</span> <span class="title">{{title}}</span></a>
+	</script>
+	
+    <script type="text/tim" class="lightbox">
+        <div class="lightbox-inner">
+            <div class="content"></div>
+            <button class="action close">Close</button>
+        </div>
+    </script>
+
+    <script type="text/tim" class="login">
+        <h1>Login</h1>
+        <ul>
+            <li>
+                <label for="field-username">Username</label>
+                <input type="text" id="field-username" name="username" placeholder="joebloggs" value="" />
+            </li>
+            <li>
+                <label for="field-password">Password</label>
+                <input type="password" id="field-password" name="password" placeholder="password" value="" />
+            </li>
+        </ul>
+        <div class="actions">
+            <button type="submit">Login</button>
+            <p class="note"><a href="#/forgot-details/" data-lightbox="open" title="Retrieve your login details">Forgotten your details?</a></p>
+        </div>
+    </script>
+
+    <script type="text/tim" class="forgot-details">
+        <h1>Forgotten your details?</h1>
+        
+        <p>Please enter your username <em>OR</em> registered email address:</p>
+        <ul>
+            <li>
+                <label for="field-username">Username</label>
+                <input type="text" id="field-username" name="username" placeholder="joebloggs" value="" />
+            </li>
+            <li>
+                <label for="field-email">Email Address</label>
+                <input type="email" id="field-email" name="email" placeholder="joebloggs@example.com" value="" />
+            </li>
+        </ul>
+        
+        <p><strong>You'll receive an email</strong> giving you a unique link. Follow the link to reset your password.</p>
+        
+        <div class="actions">
+            <button type="submit">Reset password</button>
+            <p class="note"><a href="#/login/" data-lightbox="open" title="Return to login form">Return to login</a></p>
+        </div>
+    </script>
+
+    <script type="text/tim" class="signup">
+        <h1>Register for an Account</h1>
+        <p>Please provide the following details and we’ll create an account for you.</p>
+        <ul>
+            <li>
+                <label for="field-username">Username</label>
+                <input type="text" id="field-username" name="username" placeholder="joebloggs" value="" />
+            </li>
+            <li>
+                <label for="field-email">Email Address</label>
+                <input type="email" id="field-email" name="email" placeholder="joebloggs@example.com" value="" />
+            </li>
+            <li>
+                <label for="field-name">Your Name</label>
+                <input type="text" id="field-name" name="name" placeholder="Joe Bloggs" value="" />
+            </li>
+            <li>
+                <label for="field-password">Password</label>
+                <input type="password" id="field-password" name="password" placeholder="password" value="" />
+            </li>
+            <li>
+                <label for="field-password_confirm">Confirm Password</label>
+                <input type="password" id="field-password_confirm" name="password_confirm" placeholder="password again" value="" />
+            </li>
+            <li class="upload-image">
+                <label for="field-image">Image</label>
+                <input id="field-image" type="file" name="image" />
+                <p class="loading">Uploading image</p>
+            </li>
+        </ul>
+        <div class="actions">
+            <button type="submit">Sign Up</button>
+        </div>
+    </script>
+
+    <script type="text/tim" class="account">
+        <h1>Update your Account Details</h1>
+        <ul>
+            <li>
+                <label for="field-name">Your Name</label>
+                <input type="text" id="field-name" name="name" placeholder="Joe Bloggs" value="{{name}}" />
+            </li>
+            <li>
+                <label for="field-email">Email Address</label>
+                <input type="email" id="field-email" name="email" placeholder="joebloggs@example.com" value="{{email}}" />
+            </li>
+            <li>
+                <label for="field-password">Password <span class="note">(Keep blank to leave unchanged)</span></label>
+                <input type="password" id="field-password" name="password" placeholder="password" value="" />
+            </li>
+            <li>
+                <label for="field-password_confirm">Confirm Password</label>
+                <input type="password" id="field-password_confirm" name="password_confirm" placeholder="password again" value="" />
+            </li>
+            <li class="upload-image">
+                <label for="field-image">Image</label>
+                <input id="field-image" type="file" name="image" />
+                <p class="loading">Uploading image</p>
+            </li>
+        </ul>
+        <div class="actions">
+            <button type="submit">Update</button>
+        </div>
+    </script>
+
+    <script type="text/tim" class="change-password">
+        <h1>Change your Password</h1>
+        <ul>
+            <li>
+                <label for="field-password">Password</label>
+                <input type="password" id="field-password" name="password" placeholder="password" value="" />
+            </li>
+            <li>
+                <label for="field-password_confirm">Confirm Password</label>
+                <input type="password" id="field-password_confirm" name="password_confirm" placeholder="password again" value="" />
+            </li>
+        </ul>
+        <div class="actions">
+            <button type="submit">Change password</button>
+        </div>
+    </script>
+    
+    <script type="text/tim" class="iframe-upload">
+        <!doctype html>
+        <head>
+            <link rel="stylesheet" href="{{stylesheet}}" />
+            <style>
+                html, body, form, form input[type=file] {
+                    background: none; border: none; margin: 0;
+                }
+            </style>
+        </head>
+        <body class="content">
+            <form action="" method="post" enctype="multipart/form-data">
+                <input type="file" name="{{name}}" />
+            </form>
+        </body>
+    </script>
+
+    <!-- SCRIPTS-->
+    <script src="/media/notepad/build/pkg/tasket.notepad.loader.min.js?v0.0.5"></script>
+    
+    <!--[if lte IE 6]>
+        <script src='/media/notepad/js/lib/DD_belatedPNG_0.0.8a-min.js'></script>
+        <script>
+          DD_belatedPNG.fix('header h1 a, #mainnav li, footer nav li, #content .new-item, #content .edit-item li a, aside nav .star a, aside nav .new-list a, aside nav .showing a, aside.open, aside.closed, #content .item-list p, .lightbox .close');
+        </script>
+    <![endif]-->
+</body>
+</html>

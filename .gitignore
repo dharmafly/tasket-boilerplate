@@ -1,0 +1,19 @@
+/bin
+/include
+/lib
+/ve
+/web
+/build
+__init__.py
+__init__.pyc
+local_settings.py
+server
+/.Python
+
+# PIL-generated images
+client/media/cache
+client/media/images/hubs
+client/media/images/users
+
+# Built files
+client/media/custom/build/pkg
